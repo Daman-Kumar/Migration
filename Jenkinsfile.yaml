@@ -1,14 +1,18 @@
 pipeline:
-agent:
-  any:
+  agent:
+    any:
   stages:
-    - stage "Stage 1"
-      steps:  
+    - stage: "Checkout"
+      steps:
+	- checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Daman-Kumar', url: 'https://github.com/Daman-Kumar/Migration.git']]])
+        - sh "ls -lart ./*"
+    - stage: "Log Jenkins Maven Docker"
+	  steps:
         - sh 'java -version'
-	- sh 'git --version'
-    - stage "Stage 2"
+		- sh 'git --version'
+    - stage: "GitHub Jenkins Maven Docker Build"
       steps:
-        - sh 'Yaml'
-    - stage "Final"
-      steps:
-	- sh "echo Jenkins yaml"
+        - sh "echo 'Hello World' "
+    - stage: "Final Stage"
+	  steps:
+		- sh "echo 'Jenkins yaml' "
